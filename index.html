@@ -302,10 +302,19 @@
           }
         });
 
-        $.post( "https://w1hsekj1ah.execute-api.eu-west-1.amazonaws.com/staging/", { url: "https://nhac.vn/playlist-playlist-moi-pu5Oo5rn" })
-          .done(function( data ) {
-            alert( "Data Loaded: " + data );
-          });
+        $.ajax({
+          type: "POST",
+          url: "https://w1hsekj1ah.execute-api.eu-west-1.amazonaws.com/staging/",
+          crossDomain: true,
+          data: {
+            url: "https://nhac.vn/playlist-playlist-moi-pu5Oo5rn"
+          },
+          contentType: "application/json",
+          dataType: "json",
+          success: function(data) {
+            console.log(data);
+          }
+        });
       });
     </script>
   </body>
