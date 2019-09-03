@@ -302,13 +302,15 @@
           }
         });
 
+        const data = {
+          url: "https://nhac.vn/playlist-playlist-moi-pu5Oo5rn"
+        };
+
         $.ajax({
           type: "POST",
           url: "https://w1hsekj1ah.execute-api.eu-west-1.amazonaws.com/staging/",
           crossDomain: true,
-          data: {
-            url: "https://nhac.vn/playlist-playlist-moi-pu5Oo5rn"
-          },
+          data: JSON.stringify(data),
           contentType: "application/json",
           dataType: "json",
           success: function(data) {
