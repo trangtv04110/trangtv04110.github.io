@@ -231,24 +231,27 @@
               </div>
             </div>
             <div class="col-md-6" id="contact">
-                <div class="card card-product">
-                  <div class="card-header">
-                    <h4 class="card-title">
-                      Thông tin liên hệ
-                    </h4>
-                  </div>
-                  <div class="card-body">
-                    <p>TRẦN VĂN TRANG</p>
-                    <ul>
-                      <li><i class="fa fa-mobile"></i> <a href="tel:0385533157" class="text-info">0385533157</a></li>
-                      <li><i class="fa fa-facebook"></i><a href="https://fb.com/trangtv04110"  class="text-info" target="blank">https://fb.com/trangtv04110</a></li>
-                      <li><i class="fa fa-map-marker"></i>VCCI, Số 9 Đào Duy Anh, Phương Mai, Đống Đa, Hà Nội</li>
-                    </ul>
-                  </div>
+              <div class="card card-product">
+                <div class="card-header">
+                  <h4 class="card-title">
+                    Thông tin liên hệ
+                  </h4>
+                </div>
+                <div class="card-body">
+                  <p>TRẦN VĂN TRANG</p>
+                  <ul>
+                    <li><i class="fa fa-mobile"></i> <a href="tel:0385533157" class="text-info">0385533157</a></li>
+                    <li><i class="fa fa-facebook"></i><a href="https://fb.com/trangtv04110"  class="text-info" target="blank">https://fb.com/trangtv04110</a></li>
+                    <li><i class="fa fa-map-marker"></i>VCCI, Số 9 Đào Duy Anh, Phương Mai, Đống Đa, Hà Nội</li>
+                  </ul>
+                </div>
+                <div class="card-footer">
+                  <div id="audio"></div>
                 </div>
               </div>
+            </div>
           </div>
-
+          
         </div>
       </div>
 
@@ -299,6 +302,33 @@
               500
             );
             return false;
+          }
+        });
+
+        const data = {
+          url: "https://nhac.vn/playlist-playlist-moi-pu5Oo5rn"
+        };
+
+        $.ajax({
+          type: "POST",
+          url: "https://w1hsekj1ah.execute-api.eu-west-1.amazonaws.com/staging/",
+          crossDomain: true,
+          data: JSON.stringify(data),
+          contentType: "application/json",
+          dataType: "json",
+          success: function(data) {
+            if (data.statusCode === 200 && data.body) {
+              const playlist = JSON.parse(data.body);
+              let source = playlist[0].sources.find(source => source.label === '320K');
+              if (!source) source = playlist[0].sources[0];
+              console.log(source);
+
+              $( "#audio" ).prepend( "<audio controls autoplay id='player'><source src='" + source.file + "' type='audio/mp3'></audio>" );
+
+              setTimeout(function() {
+                document.getElementById('player').play();
+              }, 10000);
+            }
           }
         });
       });
